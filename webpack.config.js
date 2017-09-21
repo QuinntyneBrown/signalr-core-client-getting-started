@@ -1,7 +1,8 @@
 ﻿const webpack = require('webpack');
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
-    devtool: 'source-map',
     entry: {
         'app': './src/main'
     },
@@ -11,13 +12,20 @@ module.exports = {
         publicPath: "dist/"
     },
     resolve: {
-        extensions: ['.ts','.css','js','.json', '.html']
+        extensions: ['.ts', '.css', '.html', '.js']
     },
     module: {
         loaders: [
+            {
+                test: /\.ts$/,
+                use: [{
+                    loader: 'awesome-typescript-loader'
+                }]
+            },
             { test: /\.css$/, loader: 'raw-loader' },
             { test: /\.html$/, loaders: ['html-loader'] },
-            { test: /\.ts$/, loaders: ['awesome-typescript-loader'], exclude: /node_modules/ }
         ]
-    }
+    },
+    plugins: [
+    ]
 };
